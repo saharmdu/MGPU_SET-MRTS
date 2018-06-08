@@ -73,11 +73,9 @@ example:<br/>
 	RTA for worst-fit semapore PFP
 	RTA for PFP of Greedy Slack
 	RTA for Resource-Oriented Partitioned Scheduling
-	RTA for spinlock PFP (Integer Linear Programming)
 	RTA for worst-fit spinlock PFP (Linear Programming)
 	RTA for worst-fit DPCP PFP (Linear Programming)
 	RTA for worst-fit MPCP PFP (Linear Programming)
-	RTA for Resource-Oriented Partitioned Scheduling (Integer Linear Programming)
 
 
 
