@@ -1677,8 +1677,7 @@ void task_gen_UUnifast_Discard(TaskSet *taskset, ResourceSet *resourceset,
   fraction_t SumU;
 
   // uint n = 10;
-  // uint n = param.lambda * utilization;
-  uint n = 2 * param.p_num;
+  uint n = param.lambda * utilization;
 
   vector<fraction_t> u_set;
   bool re_gen = true;
