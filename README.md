@@ -60,7 +60,7 @@ example:<br/>
 2. Execute the program;
 3. Check the numeric results and graph in results folder.
 
-## Supported Scheduling Test (including bu not limited)
+## Supported Scheduling Test (including but not limited to)
 ### Global Scheduling
 	RTA for global fixed priority(GFP)
 	RTA for GFP under FMLP (Linear Programming)
