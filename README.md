@@ -1,5 +1,6 @@
 # SET-MRTS
 SET-MRTS: **S**chedulability **E**xperimental **T**ools for **M**ultiprocessors **R**eal **T**ime **S**ystems
+(The reference for SET-MRTS is cited in the paper.)
 
 ## Compile
 enter src and make.(C++ 11 is needed)<br/>
