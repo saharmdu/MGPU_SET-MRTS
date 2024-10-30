@@ -242,7 +242,8 @@ class TaskSet {
 
   void update_requests(const ResourceSet& resoruces);
 
-  void export_taskset(const char* path);
+  //void export_taskset(const char* path);
+  void export_taskset(string path);
 };
 
 typedef struct ArcNode {

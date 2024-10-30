@@ -80,7 +80,7 @@ bool Resource::is_global_resource() {
 bool Resource::is_processor_local_resource() const {
   return processor_local_resource;
 }
-// Request_Tasks Resource::get_tasks() const { return tasks; }
+//Request_Tasks Resource::get_tasks() const { return tasks; }   //****
 
 TaskSet* Resource::get_tasks() { return tasks; }
 

@@ -15,12 +15,21 @@
 #include <string>
 #include <fstream>
 
+#include <iostream>       //****
+#include <vector>
+#include <string>
+#include <tinyxml2.h>
+
 using std::max;
 using std::min;
 using std::ifstream;
 using std::string;
 using std::to_string;
 using std::exception;
+
+using namespace std;   //*****
+using namespace tinyxml2;
+
 
 /** Class Request */
 
@@ -1033,6 +1042,7 @@ void TaskSet::update_requests(const ResourceSet& resources) {
   }
 }
 
+/*
 void TaskSet::export_taskset(const char *path) {
   XML output;
 
@@ -1089,7 +1099,90 @@ void TaskSet::export_taskset(const char *path) {
   }
 
   output.save_file(path);
+}*/
+/*
+void TaskSet::export_taskset(const char *path) {
+  XML output;
+
+  output.initialization();
+
+  output.add_element("taskset");
+
+  //output.add_element("taskset", "utilization", to_string(get_utilization_sum().get_d()).data());
+
+  for (uint i = 0; i < tasks.size(); i++) {
+    output.add_element("taskset", "task");
+    XMLElement *ts = output.get_element("taskset");
+    XMLElement *t = output.get_element(ts, "task", i);
+
+    output.add_element(t, "Task id", to_string(tasks[i].get_id()).data());
+
+    output.add_element(t, "period", to_string(tasks[i].get_period()).data());
+
+    output.add_element(t, "deadline", to_string(tasks[i].get_deadline()).data());
+    
+    output.add_element(t, "wcet", to_string(tasks[i].get_wcet()).data());
+
+    output.add_element(t, "Ci", to_string(tasks[i].get_wcet_non_critical_sections()).data());
+
+    output.add_element(t, "Gi", to_string(tasks[i].get_wcet_critical_sections()).data());
+
+    //output.add_element(t, "u", to_string(tasks[i].get_utilization().get_d()).data());
+
+    if (0 != tasks[i].get_requests().size()) {
+      output.add_element(t, "GPU");
+      XMLElement *req = output.get_element(t, "GPU");
+
+      for (uint j = 0; j < tasks[i].get_requests().size(); j++) {
+        output.add_element(req, "resource");
+        XMLElement *res = output.get_element(req, "resource", j);
+
+        output.add_element(res, "j", to_string(tasks[i].get_requests()[j].get_resource_id()).data());
+
+        output.add_element(res, "N", to_string(tasks[i].get_requests()[j].get_num_requests()).data());
+
+        output.add_element(res, "Gi,j", to_string(tasks[i].get_requests()[j].get_max_length()).data());
+      }
+    }
+  }
+
+  output.save_file(path);
+}*/
+
+void TaskSet::export_taskset(string path) {
+    string file_name = string(path);
+    bool fileExists = std::ifstream(file_name).good();
+    ofstream output_file(file_name, ios::app); // Open in append mode
+    
+    // Write CSV headers only if the file didn't exist before
+    /*if (!fileExists) {
+        output_file << "Task ID,Period,Deadline,WCET,Ci,Gi,CPUseg,GPUseg\n";
+    }*/
+      
+    // Write task details
+    for (uint i = 0; i < tasks.size(); i++) {
+        int totalNumRequests = 0;
+        for (const auto& request : tasks[i].get_requests()) {
+            totalNumRequests += request.get_num_requests();
+        }
+        
+        output_file << tasks[i].get_id() << ",";
+        output_file << tasks[i].get_period() << ",";
+        output_file << tasks[i].get_deadline() << ",";
+        output_file << tasks[i].get_wcet() << ",";
+        output_file << tasks[i].get_wcet_non_critical_sections() << ",";
+        output_file << tasks[i].get_wcet_critical_sections() << ",";
+        output_file << totalNumRequests+1 << ","; 
+        output_file << totalNumRequests << "\n"; // Add total number of requests (Eta)
+        //output_file << tasks[i].get_utilization() << ",";
+    }
+    output_file << "\n";
+    output_file.flush();
+    output_file.close();
 }
+
+
+
 
 /** Task DAG_Task */
 
@@ -1744,23 +1837,23 @@ void task_load(TaskSet* taskset, ResourceSet* resourceset, string file_name) {
   string buf;
   uint id = 0;
   while (getline(file, buf)) {
-    // cout << buf <<endl;
+    cout << buf <<endl;   //*****
     vector<uint64_t> elements;
     extract_element(elements, buf, 1, 3 * (1 + resourceset->get_resourceset_size()));
     if (3 <= elements.size()) {
       Task task(id, elements[0], elements[1], elements[2]);
       uint n = (elements.size() - 3) / 3;
-      // cout << n <<endl;
+      cout << n <<endl;     //*****
       for (uint i = 0; i < n; i++) {
         uint64_t length = elements[4 + i * 3] * elements[5 + i * 3];
-        // cout << length<<endl;
+        cout << length<<endl;     //*****
         task.add_request(elements[3 + i * 3], elements[4 + i * 3], elements[5 + i * 3], length);
         task.set_wcet_non_critical_sections(task.get_wcet_non_critical_sections() - length);
-        // cout<<task.get_wcet_non_critical_sections()<<endl;
+        cout<<task.get_wcet_non_critical_sections()<<endl;
         task.set_wcet_critical_sections(task.get_wcet_critical_sections() + length);
-        // cout<<task.get_wcet_critical_sections()<<endl;
+        cout<<task.get_wcet_critical_sections()<<endl;
         resourceset->add_task(elements[3 + i * 3], id);
-        // cout<<"add to resourceset"<<endl;
+        cout<<"add to resourceset"<<endl; 
       }
       taskset->add_task(task);
 
@@ -1780,17 +1873,18 @@ void task_load(TaskSet* taskset, ResourceSet* resourceset, string file_name) {
           << " deadline:" << task->get_deadline()
           << " period:" << task->get_period() << endl;
     foreach(task->get_requests(), request) {
-      cout << "request" << request->get_resource_id() << ":"
+      /*cout << "request" << request->get_resource_id() << ":"
             << " num:" << request->get_num_requests()
             << " length:" << request->get_max_length() << " locality:"
             << resourceset->get_resources()[request->get_resource_id()]
                   .get_locality()
-            << endl;
+            << endl;*/
     }
     cout << "-------------------------------------------" << endl;
     if (task->get_wcet() > task->get_response_time()) exit(0);
   }
 }
+
 
 void dag_task_gen(DAG_TaskSet *dag_taskset, ResourceSet *resourceset,
                   Param param, double utilization) {

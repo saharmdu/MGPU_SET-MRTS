@@ -19,7 +19,7 @@ MOVE          = mv -f
 MKDIR         = mkdir -p
 TARGET	      = SchedulingAnalysis
 
-OBJ_FILES	  = tasks.o processors.o tinyxml2.o random_gen.o mgl_chart.o resources.o xml.o param.o sched_result.o output.o time_record.o lp.o solution.o varmapper.o sched_test_base.o sched_test_factory.o p_sched.o g_sched.o rta_gfp_native.o rta_gfp_bc.o rta_gfp_ng.o rta_pfp_wf.o rta_pfp_ff.o rta_pfp_wf_spinlock.o lp_rta_gfp_pip.o lp_rta_gfp_fmlp.o lp_rta_pfp_dpcp.o lp_rta_pfp_mpcp.o rta_pfp_gs.o nc_lp_ee_vpr.o rta_pfp_rop.o rta_pfp_ro_np.o
+OBJ_FILES	  = tasks.o processors.o tinyxml2.o random_gen.o mgl_chart.o resources.o xml.o param.o sched_result.o output.o time_record.o lp.o solution.o varmapper.o sched_test_base.o sched_test_factory.o p_sched.o g_sched.o rta_gfp_native.o rta_gfp_bc.o rta_gfp_ng.o rta_pfp_wf.o rta_pfp_ff.o rta_pfp_wf_spinlock.o lp_rta_gfp_pip.o lp_rta_gfp_fmlp.o lp_rta_pfp_dpcp.o lp_rta_pfp_mpcp.o rta_pfp_gs.o nc_lp_ee_vpr.o rta_pfp_rop.o rta_pfp_ro_np.o 
 
 SchedulingAnalysis:scheduling_test.o $(OBJ_FILES)
 	$(CXX) $(CXXFLAGS) $(INCPATH) -o $(TARGET) scheduling_test.o $(OBJ_FILES) $(LFLAGS) $(LIBS) -std=gnu++11

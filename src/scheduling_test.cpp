@@ -32,10 +32,12 @@ using std::cout;
 using std::endl;
 using std::ifstream;
 using std::string;
+using std::ofstream;    //**********
 
 void getFiles(string path, string dir);
 void read_line(string path, vector<string>* files);
 vector<Param> get_parameters();
+
 
 int main(int argc, char** argv) {
   vector<Param> parameters = get_parameters();
@@ -59,7 +61,7 @@ int main(int argc, char** argv) {
 
     start = time(NULL);
 
-    cout << endl << "Strat at:" << ctime_r(&start, time_buf) << endl;
+    cout << endl << "Start at:" << ctime_r(&start, time_buf) << endl;
 
     vector<int> last_success;
 
@@ -94,9 +96,12 @@ int main(int argc, char** argv) {
         ProcessorSet processorset = ProcessorSet(*param);
         ResourceSet resourceset = ResourceSet();
         resource_gen(&resourceset, *param);
-        // task_gen(&taskset, &resourceset, *param, utilization);
+        task_gen(&taskset, &resourceset, *param, utilization);   //***********       
         task_gen_UUnifast_Discard(&taskset, &resourceset, *param, utilization);
-        // task_load(&taskset, &resourceset, "taskset.gen");
+        task_load(&taskset, &resourceset, "taskset.gen");  //*************
+        //taskset.export_taskset("Tasksets.xml");   //****
+
+
         for (uint j = 0; j < param->get_method_num(); j++) {
           taskset.init();
           processorset.init();
@@ -226,9 +231,13 @@ int main(int argc, char** argv) {
 #endif
           // sleep(1);
         }
-
         result.utilization = utilization;
+        
+        std::stringstream filename;         //*******************
+        filename << "taskset" << utilization << ".csv";
+        taskset.export_taskset(filename.str());     //************
       }  // exp_times
+
       cout << endl;
 
       for (uint j = 0; j < param->test_attributes.size(); j++) {
@@ -298,7 +307,7 @@ void read_line(string path, vector<string>* files) {
   getline(dir, buf);
   while (getline(dir, buf)) {
     files->push_back("config/" + buf);
-    // cout<<"file name:"<<buf<<endl;
+    //cout<<"file name:"<<buf<<endl;
   }
 }
 

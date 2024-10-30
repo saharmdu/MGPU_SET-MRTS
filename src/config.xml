@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <parameters>
     <schedulability_test>
-        <data RENAME="LP-GFP-FMLP"	STYLE="{x5B9BD5}2o">LP-RTA-GFP-FMLP</data>
-        <data RENAME="LP-PFP-DPCP"      STYLE="{xEB5B5B}2+">LP-RTA-PFP-DPCP</data>
-        <data RENAME="LP-PFP-MPCP" 	STYLE="{x00A000}2*">LP-RTA-PFP-MPCP</data>
+    <data RENAME="LP-GFP-FMLP"	STYLE="{x5B9BD5}2o">LP-RTA-GFP-FMLP</data>
+    <data RENAME="LP-PFP-MPCP" 	STYLE="{x00A000}2*">LP-RTA-PFP-MPCP</data>
+    <!--<data RENAME="LP-PFP-DPCP"      STYLE="{xEB5B5B}2+">LP-RTA-PFP-DPCP</data>    
 	<data RENAME="GS-MSRP" 	  	STYLE="{x8080FF}2^">RTA-PFP-GS</data>
-	<data RENAME="RTA-PFP-ROP"      STYLE="{x00BFFF}2v">RTA-PFP-ROP</data>
+	<data RENAME="RTA-PFP-ROP"      STYLE="{x00BFFF}2v">RTA-PFP-ROP</data>-->
     </schedulability_test>
-    <experiment_times>100</experiment_times>
+    <experiment_times>1500</experiment_times>
     <output>
         <data FORMAT="PNG" BLACK_ONLY="true">LineChart</data>
         <data FORMAT="EPS" BLACK_ONLY="true">LineChart</data>
@@ -19,12 +19,12 @@
         <data>10</data>
     </lambda>
     <step>
-        <data>0.2</data>
+        <data>0.1</data>
     </step>
     <init_utilization_range>
         <data>
             <min>0</min>
-            <max>4</max>
+            <max>2</max>
         </data>
     </init_utilization_range>
     <processor_num>
@@ -38,8 +38,8 @@
     </processor_ratio>
     <period_range>
         <data>
-            <min>10000</min>
-            <max>100000</max>
+            <min>100</min>
+            <max>500</max>
         </data>
     </period_range>
     <deadline_propotion>
@@ -49,61 +49,61 @@
         </data>
     </deadline_propotion>
     <resource_num>
-        <data>2</data>
+        <data>4</data>
     </resource_num>
     <mcsn>//max_critical_section_number
-	<data>100</data>
+	<data>3</data>
     </mcsn>
     <rrp>//resource_request_probability
-	<data>0.5</data>
+	<data>0.3</data>
     </rrp>
     <rrn>//resource_request_number
-	<data>1</data>
+	<data>3</data>
     </rrn>
     <rrr>//resource_request_range
         <data>
-            <min>100</min>
-            <max>200</max>
+            <min>3</min>
+            <max>50</max>
         </data>
     </rrr>
     <total_len_factor>
-        <data>0.6</data>
+        <data>0.3</data>
     </total_len_factor>
     <dag_job_num_range>
         <data>
-            <min>3</min>
-            <max>3</max>
+            <min>0</min>
+            <max>0</max>
         </data>
     </dag_job_num_range>
     <paralleled_probability>
-        <data>0.1</data>
+        <data>0</data>
     </paralleled_probability>
     <conditional_probability>
         <data>0</data>
     </conditional_probability>
     <max_paralleled_job>
-        <data>3</data>
+        <data>0</data>
     </max_paralleled_job>
     <max_conditional_branch>
-        <data>3</data>
+        <data>0</data>
     </max_conditional_branch>
     <dag_arc_density>
-        <data>0.2</data>
+        <data>0</data>
     </dag_arc_density>
     <dag_arc_num_range>
         <data>
             <min>0</min>
-            <max>5</max>
+            <max>0</max>
         </data>
     </dag_arc_num_range>
     <is_cyclic>
         <data>0</data>
     </is_cyclic>
     <max_indegree>
-        <data>2</data>
+        <data>0</data>
     </max_indegree>
     <max_outdegree>
-        <data>2</data>
+        <data>0</data>
     </max_outdegree>
     <server_ip>47.106.80.141</server_ip>//ali cloud server
 	<server_port>3389</server_port>

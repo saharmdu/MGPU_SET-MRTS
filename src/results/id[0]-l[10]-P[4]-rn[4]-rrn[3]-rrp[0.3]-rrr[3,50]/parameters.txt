@@ -1,0 +1,11 @@
+Lambda: 10
+Processor num: 4
+Period range: [100-500]
+Utilization range: [0-2]
+Deadline proportion range: [1-1]
+Resource num: 4
+Max critical section num: 3
+Resource request num: 3
+Resource request probability: 0.3
+Total length factor: 0.3
+Resource request range: [3-50]

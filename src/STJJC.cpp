@@ -41,6 +41,8 @@ int main(int argc, char **argv)
   else
     input = argv[1];
 
+  //std::cout << "Attempting to open file: " << input << std::flush;
+
   vector<Param> parameters = get_parameters();
   cout << parameters.size() << endl;
   //foreach(parameters, param)
@@ -62,7 +64,7 @@ int main(int argc, char **argv)
     start = time(NULL);
 
     cout << endl
-         << "Strat at:" << ctime(&start) << endl;
+         << "Start at:" << ctime(&start) << endl;
 
     double utilization;
 
@@ -371,7 +373,7 @@ void extract_element(vector<floating_t> &elements, string bufline, uint start, u
       {
         if (count >= start && count < start + num)
         {
-          //					cout<<"element:"<<charbuf<<endl;
+          //cout<<"element:"<<charbuf<<endl;
           floating_t element(charbuf);
           elements.push_back(element);
         }
